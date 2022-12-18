@@ -26,15 +26,10 @@ def createsparksession():
 def sas_to_date(date):
     # 1. sas dates to python datetime
     """
-        datetime.strptime('2016-01-01', '%Y-%m-%d') - timedelta(20566) gives a date between the year 1959 and 1960 
-        working with the date 1960-01-01 gives a more accurate date that reflects the arrival and departure dates
+    datetime.strptime('2016-01-01', '%Y-%m-%d') - timedelta(20566) gives a date between the year 1959 and 1960 
+    working with the date 1960-01-01 gives a more accurate date that reflects the arrival and departure dates
     """
     return (datetime.strptime('1960-01-01', '%Y-%m-%d') + timedelta(date)).strftime('%Y-%m-%d')
-
-    # build fact table from immigration_df 
-    immigration_fact = df_immigration[['cic_id', 'year', 'month','arrival_date','departure_date','mode','visatype']]
-    immigration_fact['arrival_date'] = immigration_fact.arrival_date.apply(lambda x: sas_to_date(x))
-    immigration_fact['departure_date'] = immigration_fact.departure_date.apply(lambda x: sas_to_date(x))
 
 
 def read_labels(file, first_row,last_row):
@@ -56,9 +51,9 @@ def read_labels(file, first_row,last_row):
 
 def process_immigration_data(spark, input_data, output_data):
     """
-     Loads immigration data and processes it into a fact table
-     input_data: source of data
-     output_data: destination storage for processed data
+    Loads immigration data and processes it into a fact table
+    input_data: source of data
+    output_data: destination storage for processed data
     """
     # read/load immigration_data file
     immigration_data = os.path.join( input_data + "sas_data" )
@@ -70,7 +65,9 @@ def process_immigration_data(spark, input_data, output_data):
     df_immigration = df_immigration.select("*")
         
     # rename columns to make them inteligible
-    rename_cols =["cic_id","year","month","cit","res","port","arrival_date","mode","address","departure_date","age","visa","count","date_logged","dept_visa_issuance","occupation","arrival_flag","departure_flag","update_flag","match_flag","birth_year","max_stay_date","gender","INS_number","airline","admission_number","flight_number","visatype"]
+    rename_cols=["cic_id","year","month","cit","res","port","arrival_date","mode","address","departure_date","age","visa","count","date_logged",
+                 "dept_visa_issuance","occupation","arrival_flag","departure_flag","update_flag","match_flag","birth_year","max_stay_date","gender",
+                 "INS_number","airline","admission_number","flight_number","visatype"]
     
     #create an iterator between collumns
     for col, rename_cols in zip(df_immigration.columns, rename_cols):
@@ -89,8 +86,9 @@ def process_immigration_data(spark, input_data, output_data):
     ].dropDuplicates(['cic_id'])
     
     # dimensions from immigration data
-    dim_flight_details =       df_immigration.select([monotonically_increasing_id().alias('id'),'cic_id','flight_number','airline']).dropDuplicates()
-    dim_immigrants = df_immigration.select([monotonically_increasing_id().alias('id'),'cic_id','cit','res','visa','age','occupation','gender','address','INS_number']).dropDuplicates()
+    dim_flight_details = df_immigration.select([monotonically_increasing_id().alias('id'),'cic_id','flight_number','airline']).dropDuplicates()
+    dim_immigrants= df_immigration.select([monotonically_increasing_id().alias('id'),'cic_id','cit','res','visa',
+                                           'age','occupation','gender','address','INS_number']).dropDuplicates()
     
     # organazing data
     udf_func = udf(sas_to_date,DateType())
