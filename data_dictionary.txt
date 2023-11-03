@@ -1,0 +1,77 @@
+fact (immigration)
+Field          Description                     Data Type
+cic_id         Primary key                      Integer
+year           Year of arrival in the USA       Integer
+month          Month of arrival in the USA      Integer
+arrival_date   Date of arrival in the USA       Date
+departure_date Date of departure from the USA   Date
+mode           Mode of arrival in the USA        String
+visatype       Visatype of arrival in the USA    String
+
+dim (immigrant)
+Field        Description                           Data Type
+id           Primary key (monotonically increasing) Integer
+cic_id       Foreign key to relation fact_immigration Integer
+cit          3-digit visitor country of birth; FK in dim_country_code Integer
+res          3-digit visitor country of residence; FK in dim_country_codes Integer
+visa         Visatype                             String
+age          Age of immigrant                     Integer
+occupation    Occupation of immigrant in the USA    String
+gender       Sex of immigrant                     String
+address      State                                String
+INS_number   INS number                           String
+
+dim (flight details)
+Field          Description                     Data Type
+id             Primary key                      Integer
+cic_id         Foreign key to relation fact_immigration Integer
+flight_number  Flight number                   String
+airline        Airline immigrant arrived on    String
+
+dim (city codes)
+Field     Description                     Data Type
+id        Primary key                      Integer
+city      City name                       String
+code      3-letter code                   String
+state     State city is located in       String
+
+dim (country codes)
+Field  Description                  Data Type
+id     Primary key                   Integer
+code   Two/three-letter code        String
+country  Country name               String
+
+dim (demographics)
+Field              Description                  Data Type
+city               Name of city                  String
+state              Name of state                 String
+State Code         2-letter state code           String
+Male Population    Total male population         Integer
+Female Population  Total female population       Integer
+Foreign-born       Number of foreign-born         Integer
+Number of Veterans Number of veterans           Integer
+Race               Population size by race        String
+
+dim (city stats)
+Field              Description                     Data Type
+city               Name of city                     String
+state code         2-letter state code              String
+median age         Age that divides city population into two equal parts (above/below) Float
+Average Household Size Average number of people in a single household Float
+Count              Total population of the city     Integer
+
+dim (airports)
+Field          Description                   Data Type
+ident          Primary key                    String
+type           Category airport belongs to   String
+name           Airport name                   String
+continent       Continent airport is located in String
+gps_code       Longitude and latitude coordinates String
+iata_code      International Air Transport Association airport code String
+iso_country    Country airport is located in String
+
+dim (airport stats)
+Field       Description                        Data Type
+ident       Primary key                        String
+elevation_ft Height above a fixed reference point Integer
+coordinates  Longitude and latitude coordinates String
