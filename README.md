@@ -1,62 +1,44 @@
-# Data Engineering Capstone Project
+Data Engineering Capstone Project
+The Data Engineering Capstone Project represents a comprehensive data engineering initiative, involving the collection, processing, and modeling of data from diverse sources to construct a valuable and insightful data model. The primary dataset for this project encompasses information on immigration to the United States, supplemented by datasets covering airport codes and U.S. city demographics.
 
-The Data Engineering Capstone Project is a comprehensive data engineering project that involves gathering, processing, and modeling data from various sources to create a valuable and insightful data model. The primary dataset used in this project contains information on immigration to the United States, while supplementary datasets cover details on airport codes and U.S. city demographics.
+Project Description
+This project aims to showcase advanced data engineering skills through the following key steps:
 
-## Project Description
+Step 1: Scope the Project and Gather Data
+In the initial phase, the project scope and objectives are defined. Data is gathered from at least two sources, ensuring a collective dataset of over 1 million rows. The chosen datasets serve as the foundation for an analytical model with applications in understanding immigration patterns, demographic trends, and airport information.
 
-This project aims to demonstrate your data engineering skills by completing the following steps:
+Step 2: Explore and Assess the Data
+After gathering datasets, a thorough exploration and assessment phase begins. Data profiling is conducted to understand data quality and characteristics, identifying issues like missing values, duplicate records, and outliers. This step is pivotal for ensuring the integrity of the subsequent data model.
 
-### Step 1: Scope the Project and Gather Data
+Step 3: Define the Data Model
+The heart of the project lies in designing the data model. The Star schema is employed, providing a simplified data structure for easier analysis and interpretation. Key components of the data model include:
 
-In this initial phase, you will define the scope and objectives of the data engineering project. This involves identifying and gathering the necessary data for your project from at least two sources, ensuring that these sources collectively contain at least two datasets with over 1 million rows. The selection of datasets is crucial as they form the foundation of your analytical model.
+immigration (Fact Table): Details about immigration events to the United States.
+demographics (Dimension Table): U.S. city demographics providing contextual information.
+airports (Dimension Table): Data on airports, including codes and geographic details.
+This data model supports efficient querying and diverse analyses, offering valuable insights to decision-makers and analysts.
 
-End Use Cases:
-- Prepare data for analytics to gain insights into immigration patterns, demographic trends, and airport information.
-- Create tables for an application's back-end or a source-of-truth database.
+Step 4: Run ETL to Model the Data
+This step involves creating data pipelines, implementing the data model, and incorporating a data dictionary. Quality checks ensure the success of the pipeline, applying integrity constraints to the relational database and implementing unit tests to validate script functionality. Evidence is provided that the ETL has successfully processed the data into the final data model, with the project utilizing at least one million rows of data.
 
-### Step 2: Explore and Assess the Data
+Step 5: Complete Project Write Up
+The final step includes a comprehensive write-up outlining the project's goals, planned queries, and the incorporation of Spark or Airflow. The rationale for tool and technology choices is clearly stated, documenting the entire process from data gathering to data model creation. Considerations for data updates, hosting the write-up and final data model on GitHub, and addressing scalability scenarios are also covered.
 
-After gathering the datasets, you will move on to data exploration and assessment. Your goal is to understand the quality and characteristics of the data. You will conduct a thorough data profiling to identify issues such as missing values, duplicate records, outliers, and other data quality concerns. This step is crucial for ensuring the integrity of your data model.
+Additionally, the project addresses the following scenarios:
 
-### Step 3: Define the Data Model
+If the data was increased by 100x
+Spark's powerful processing engine is capable of handling a 100x increase in data. Processing data in partitions and utilizing AWS EMR for large-scale data analytics ensures efficient data handling.
 
-The heart of your project is the design of the data model. You have chosen the Star schema as your data modeling approach, simplifying data structures for easier analysis and interpretation. Key components of your data model include:
+If the pipelines were run on a daily basis by 7 am
+Scheduling the monthly DAG to run before 7 am ensures timely updates, preventing downstream tasks from failing or loading empty data.
 
-- `immigration` (Fact Table): This table contains details about immigration events to the United States.
-- `demographics` (Dimension Table): Demographics data about U.S. cities provides context for analysis.
-- `airports` (Dimension Table): Data on airports, including codes and geographic information.
+If the database needed to be accessed by 100+ people
+Implementing access management with user groups and role-based permissions ensures secure and controlled database access, making onboarding new users a streamlined process.
 
-Your chosen data model enables efficient querying and supports various analyses, making it a valuable resource for decision-makers and analysts.
+Data Quality Checks
+To ensure data quality, the following checks are implemented programmatically:
 
-### Step 4: Run ETL to Model the Data
-
-In this step, you will create data pipelines and the actual data model. Additionally, you will include a data dictionary to describe the fields and their meanings in each table. Quality checks will be run to ensure the success of your pipeline. Integrity constraints will be applied to the relational database, and unit tests will be implemented to validate script functionality.
-
-You will also provide evidence that the ETL has successfully processed the data into the final data model. Importantly, your project should use at least one million rows of data.
-
-### Step 5: Complete Project Write Up
-
-In this final step, you will provide a comprehensive write-up of your project. You will clearly define the project's goals, outline the queries you plan to run on the data, and explain how Spark or Airflow can be incorporated into the project.
-
-- Clearly state the rationale for your choice of tools and technologies.
-- Document the steps of the process from data gathering to data model creation.
-- Propose how often the data should be updated and why.
-- Host your write-up and the final data model in a GitHub repository.
-
-Additionally, you will address the following scenarios:
-
-- If the data was increased by 100x.
-- If the pipelines were run on a daily basis by 7 am.
-- If the database needed to be accessed by 100+ people.
-
-
-## Data Quality Checks
-
-To ensure data quality, the following checks have been implemented programmatically in the project:
-
-1. **Schema Validation**: Check if the schema of each table is correct.
-2. **Empty Table Check**: Verify if any table is empty.
-
-## Conclusion
-
-The Data Engineering Capstone Project is a comprehensive effort to gather, process, and model data for various use cases. The resulting data model provides valuable insights into immigration patterns, demographics, and airport information. It is designed to support efficient data analysis, visualization, and reporting, aiding in informed decision-making processes. With robust ETL pipelines and data quality checks in place, the project meets the requirements for scalability and reliability.
+Schema Validation: Checking if the schema of each table is correct.
+Empty Table Check: Verifying if any table is empty.
+Conclusion
+The Data Engineering Capstone Project is a comprehensive endeavor to gather, process, and model data for various use cases. The resulting data model offers valuable insights into immigration patterns, demographics, and airport information. Designed to support efficient data analysis, visualization, and reporting, the project stands as a robust solution for informed decision-making. With well-established ETL pipelines and data quality checks, the project meets the requirements for scalability and reliability.
